@@ -7,8 +7,8 @@ dist/
 build/
 *.egg
 
-# Database (auto-generated, don't push)
-*.db
+# Database
+# (chatbot.db is tracked intentionally)
 
 # Virtual environment
 venv/
