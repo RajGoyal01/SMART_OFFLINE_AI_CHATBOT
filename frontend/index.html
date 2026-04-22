@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R4 Rescue — Offline Intelligence Unit</title>
+    <meta name="description" content="R4 Rescue — offline AI assistant with chat and map." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon-ring">R4</div>
+                <div class="logo-text-group">
+                    <span class="logo-text">R4 RESCUE</span>
+                    <span class="logo-sub">OFFLINE INTELLIGENCE UNIT v1.0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-view="chat" id="nav-chat">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">Chat</span>
+                <span class="nav-badge">AI Terminal</span>
+            </button>
+            <button class="nav-item" data-view="map" id="nav-map">
+                <span class="nav-icon">🗺️</span>
+                <span class="nav-label">Map</span>
+                <span class="nav-badge">GPS View</span>
+            </button>
+            <button class="nav-item" data-view="walky-talky" id="nav-walky-talky">
+                <span class="nav-icon">📻</span>
+                <span class="nav-label">Walky Talky</span>
+                <span class="nav-badge">PTT Comms</span>
+            </button>
+            <button class="nav-item" data-view="radio" id="nav-radio">
+                <span class="nav-icon">🔊</span>
+                <span class="nav-label">Radio</span>
+                <span class="nav-badge">FM / HAM</span>
+            </button>
+            <button class="nav-item" data-view="emergency-sos" id="nav-emergency-sos">
+                <span class="nav-icon">🆘</span>
+                <span class="nav-label">Emergency SOS</span>
+                <span class="nav-badge">DISTRESS</span>
+            </button>
+            <button class="nav-item" data-view="chat-history" id="nav-chat-history">
+                <span class="nav-icon">🕓</span>
+                <span class="nav-label">Chat History</span>
+                <span class="nav-badge">LOGS</span>
+            </button>
+            <button class="nav-item" data-view="settings" id="nav-settings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Settings</span>
+                <span class="nav-badge">CONFIG</span>
+            </button>
+        </nav>
+
+        <!-- Spacer to push footer down -->
+        <div class="sidebar-spacer"></div>
+
+        <div class="sidebar-footer">
+            <div class="status-badge"><span class="status-dot"></span> PRIVACY: ON</div>
+            <div class="status-badge rural"><span class="status-dot"></span> RURAL READY</div>
+            <button id="settings-btn" class="icon-btn" title="Settings">⚙</button>
+        </div>
+    </aside>
+
+    <!-- Sidebar Toggle -->
+    <button id="sidebar-toggle" class="sidebar-toggle" title="Toggle Sidebar">☰</button>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content">
+
+        <!-- ====== CHAT VIEW ====== -->
+        <div id="view-chat" class="view-panel active-view">
+
+            <!-- Welcome Screen -->
+            <section id="welcome-screen" class="welcome-screen">
+                <div class="welcome-glow"></div>
+                <div class="welcome-content">
+                    <div class="welcome-icon-ring">R4</div>
+                    <h1>R4 RESCUE</h1>
+                    <p class="welcome-subtitle">Offline Intelligence Unit · Your data never leaves this device.</p>
+
+                    <!-- Centered Search Bar -->
+                    <div class="welcome-search">
+                        <div class="input-wrapper">
+                            <textarea id="message-input" class="message-input" placeholder="speak or type your query..."
+                                rows="1"></textarea>
+                            <button id="mic-btn" class="mic-btn" title="Voice input">🎙️</button>
+                            <button id="send-btn" class="send-btn" title="Send message" disabled>SEND</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestion cards pinned to bottom center -->
+                <div class="suggestion-dock">
+                    <div class="suggestion-grid">
+                        <button class="suggestion-card"
+                            data-prompt="How to survive a natural disaster?">
+                            <div class="suggestion-icon">🛡️</div>
+                            <p>How to survive a ________ ?</p>
+                        </button>
+                        <button class="suggestion-card" data-prompt="Basic Questions and Answers about survival">
+                            <div class="suggestion-icon">❓</div>
+                            <p>Basic Questions n Answers</p>
+                        </button>
+                        <button class="suggestion-card"
+                            data-prompt="First aid steps for a severe injury in remote areas">
+                            <div class="suggestion-icon">🩺</div>
+                            <p>Remote first aid guide</p>
+                        </button>
+                        <button class="suggestion-card" data-prompt="How to purify water in a survival situation?">
+                            <div class="suggestion-icon">💧</div>
+                            <p>Water purification</p>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Messages -->
+            <section id="chat-messages" class="chat-messages hidden"></section>
+
+            <!-- Input Area (visible when chatting) -->
+            <footer id="chat-input-area" class="input-area hidden">
+                <div class="input-wrapper">
+                    <textarea id="message-input-chat" class="message-input" placeholder="speak or type your query..."
+                        rows="1"></textarea>
+                    <button id="mic-btn-chat" class="mic-btn" title="Voice input">🎙️</button>
+                    <button id="send-btn-chat" class="send-btn" title="Send message" disabled>SEND</button>
+                </div>
+            </footer>
+        </div>
+
+        <!-- ====== MAP VIEW ====== -->
+        <div id="view-map" class="view-panel">
+            <div class="map-container">
+                <div class="map-header">
+                    <h2>📍 FIELD MAP — GPS VIEW</h2>
+                    <div class="map-coords">
+                        <span class="coord-label">LAT</span> <span class="coord-val">28.6139</span>
+                        <span class="coord-label">LON</span> <span class="coord-val">77.2090</span>
+                    </div>
+                </div>
+                <div class="map-canvas" id="map-canvas">
+                    <div class="map-grid"></div>
+                    <div class="map-overlay-text">
+                        <p class="map-big">OFFLINE MAP</p>
+                        <p class="map-small">Tile cache available · Last sync 2 days ago</p>
+                        <div class="map-pin">📍</div>
+                    </div>
+                    <!-- Animated radar sweep -->
+                    <div class="radar-sweep"></div>
+                </div>
+                <div class="map-status-bar">
+                    <span>ALTITUDE: 216m</span>
+                    <span>ACCURACY: ±3m</span>
+                    <span>SATELLITES: 7/12</span>
+                    <span>BATTERY: 78%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== WALKY TALKY VIEW ====== -->
+        <div id="view-walky-talky" class="view-panel">
+            <div class="feature-view-container">
+                <div class="feature-glow"></div>
+                <div class="feature-content">
+                    <div class="feature-icon-large">📻</div>
+                    <h2>WALKY TALKY</h2>
+                    <p class="feature-subtitle">Push-to-Talk · Mesh Network Communication</p>
+                    <div class="ptt-area">
+                        <button class="ptt-btn" id="ptt-btn">
+                            <span class="ptt-icon">🎙️</span>
+                            <span class="ptt-label">HOLD TO TALK</span>
+                        </button>
+                        <div class="ptt-status">
+                            <span class="status-dot"></span> Channel 1 · Standby
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== RADIO VIEW ====== -->
+        <div id="view-radio" class="view-panel">
+            <div class="feature-view-container">
+                <div class="feature-glow"></div>
+                <div class="feature-content">
+                    <div class="feature-icon-large">🔊</div>
+                    <h2>RADIO</h2>
+                    <p class="feature-subtitle">FM / HAM Band Scanner · Offline Broadcast</p>
+                    <div class="radio-display">
+                        <div class="radio-freq">
+                            <span class="freq-label">FREQ</span>
+                            <span class="freq-value">102.4 MHz</span>
+                        </div>
+                        <div class="radio-controls">
+                            <button class="radio-ctrl-btn">◀ SCAN</button>
+                            <button class="radio-ctrl-btn active-ctrl">▶ PLAY</button>
+                            <button class="radio-ctrl-btn">SCAN ▶</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== EMERGENCY SOS VIEW ====== -->
+        <div id="view-emergency-sos" class="view-panel">
+            <div class="feature-view-container sos-view">
+                <div class="feature-glow sos-glow"></div>
+                <div class="feature-content">
+                    <div class="feature-icon-large sos-icon">🆘</div>
+                    <h2 class="sos-title">EMERGENCY SOS</h2>
+                    <p class="feature-subtitle">Broadcast distress signal on all channels</p>
+                    <button class="sos-btn" id="sos-btn">
+                        <span class="sos-btn-text">ACTIVATE SOS</span>
+                        <span class="sos-btn-sub">Press and hold for 3 seconds</span>
+                    </button>
+                    <div class="sos-info">
+                        <span>GPS coordinates will be broadcast</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== CHAT HISTORY VIEW ====== -->
+        <div id="view-chat-history" class="view-panel">
+            <div class="feature-view-container">
+                <div class="feature-content chat-history-content">
+                    <div class="feature-icon-large">🕓</div>
+                    <h2>CHAT HISTORY</h2>
+                    <p class="feature-subtitle">Your past conversations · Stored locally</p>
+                    <div class="history-list" id="history-list">
+                        <div class="history-empty" id="history-empty">
+                            <p>No conversations yet. Start chatting to see your history here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== SETTINGS VIEW ====== -->
+        <div id="view-settings" class="view-panel">
+            <div class="feature-view-container">
+                <div class="feature-content settings-view-content">
+                    <div class="feature-icon-large">⚙️</div>
+                    <h2>SETTINGS</h2>
+                    <p class="feature-subtitle">Configure your R4 Rescue unit</p>
+                    <div class="settings-inline">
+                        <div class="setting-group">
+                            <label class="setting-label">Model</label>
+                            <select id="model-select-inline" class="setting-select">
+                                <option value="llama-7b" selected>LLaMA 7B (Fast)</option>
+                                <option value="llama-13b">LLaMA 13B (Balanced)</option>
+                                <option value="llama-30b">LLaMA 30B (Accurate)</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label">Temperature</label>
+                            <div class="range-wrapper">
+                                <input type="range" id="temperature-slider-inline" min="0" max="100" value="70"
+                                    class="setting-range" />
+                                <span id="temperature-value-inline" class="range-value">0.7</span>
+                            </div>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label">Clear All Data</label>
+                            <button id="clear-data-btn-inline" class="danger-btn">Delete All Conversations</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>SETTINGS</h2>
+                <button id="close-settings" class="icon-btn" title="Close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label class="setting-label">Model</label>
+                    <select id="model-select" class="setting-select">
+                        <option value="llama-7b" selected>LLaMA 7B (Fast)</option>
+                        <option value="llama-13b">LLaMA 13B (Balanced)</option>
+                        <option value="llama-30b">LLaMA 30B (Accurate)</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">Temperature</label>
+                    <div class="range-wrapper">
+                        <input type="range" id="temperature-slider" min="0" max="100" value="70"
+                            class="setting-range" />
+                        <span id="temperature-value" class="range-value">0.7</span>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">Clear All Data</label>
+                    <button id="clear-data-btn" class="danger-btn">Delete All Conversations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
