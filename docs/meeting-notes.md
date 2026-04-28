@@ -3,7 +3,7 @@ SMART OFFLINE AI CHATBOT
 
 ---
 
-## 📅 Day 1 – [Insert Date]
+## 📅 Day 1 – 
 
 ### Objectives
 - Identify and finalize required hardware components for the prototype device.
@@ -31,7 +31,7 @@ The following components were finalized for procurement:
 
 ---
 
-## 📅 Day 2 – [Insert Date]
+## 📅 Day 2 – 
 
 ### Objectives
 - Review system architecture and backend performance issues.
