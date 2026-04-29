@@ -15,7 +15,7 @@ This is the **backend server** for an offline AI chatbot with GPS tracking, radi
 
 | # | Component | Specification | Purpose |
 |---|-----------|--------------|---------|
-| 1 | **Raspberry Pi 5** | 8GB RAM | Edge client — runs the frontend UI and sends API requests to laptop over LAN |
+| 1 | **Raspberry Pi 4** | 4GB RAM | Edge client — runs the frontend UI and sends API requests to laptop over LAN |
 | 2 | **Power Cables** | Pi 5 USB-C (27W) + Laptop adapter | Powers the Raspberry Pi and laptop |
 | 3 | **HDMI Cable** | Micro-HDMI to HDMI | Connects Pi to the display screen |
 | 4 | **Screen / Monitor** | Any HDMI-compatible display | Shows AI chat responses and GPS data |
